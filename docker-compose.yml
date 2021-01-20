@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  worker:
+    tty: true
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./WorkerApp/Dockerfile
+    environment:
+      - Messaging__Transport=RabbitMQ
+      - RabbitMQ__Host=rabbitmq://host.docker.internal
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+
+  client:
+    tty: true
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./ClientApp/Dockerfile
+    depends_on:
+      - worker
+    environment: 
+      - Messaging__Transport=RabbitMQ
+      - RabbitMQ__Host=rabbitmq://host.docker.internal
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
