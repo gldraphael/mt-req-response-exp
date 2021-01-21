@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CommonLib
+namespace CommonLib.Internal
 {
-    public class RabbitMQOptions
+    internal class RabbitMQOptions
     {
         public Uri? Host { get; set; }
         public string? Username { get; set; }

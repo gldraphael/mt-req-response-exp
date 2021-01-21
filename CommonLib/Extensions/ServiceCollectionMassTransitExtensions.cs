@@ -1,11 +1,12 @@
-﻿using MassTransit;
+﻿using CommonLib.Internal;
+using MassTransit;
 using MassTransit.Azure.ServiceBus.Core;
 using MassTransit.RabbitMqTransport;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace CommonLib
+namespace CommonLib.Extensions
 {
     public static class ServiceCollectionMassTransitExtensions
     {

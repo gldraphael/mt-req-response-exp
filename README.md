@@ -17,7 +17,7 @@
 
 If it worked fine, should see something like this:
 
-```json
+```verilog
 Starting mt-req-response-exp_worker_1 ... done
 Starting mt-req-response-exp_client_1 ... done
 Attaching to mt-req-response-exp_worker_1, mt-req-response-exp_client_1

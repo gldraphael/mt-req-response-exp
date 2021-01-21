@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommonLib.Internal;
+using Microsoft.Extensions.Configuration;
 
-namespace CommonLib
+namespace CommonLib.Extensions
 {
-    public static class ConfigurationExtensions
+    internal static class ConfigurationExtensions
     {
         public static string GetAzureServiceBusConnectionString(this IConfiguration config) =>
             config.GetConnectionString("AzureServiceBus");
