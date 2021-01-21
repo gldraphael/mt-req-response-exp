@@ -25,7 +25,7 @@ namespace WorkerApp
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
-                    services.AddSingleton<GetInfoService>();
+                    services.AddTransient<GetInfoService>();
 
                     services.AddMassTransit(
                         config: hostContext.Configuration,
