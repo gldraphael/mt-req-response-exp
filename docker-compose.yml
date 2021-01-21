@@ -1,29 +1,32 @@
-version: '3'
+version: '3.8'
 
 services:
 
   worker:
     tty: true
-    restart: on-failure
+    restart: unless-stopped
     build:
       context: .
       dockerfile: ./WorkerApp/Dockerfile
     environment:
-      - Messaging__Transport=RabbitMQ
-      - RabbitMQ__Host=rabbitmq://host.docker.internal
-      - RabbitMQ__Username=guest
-      - RabbitMQ__Password=guest
+      - Messaging__Transport=${Transport}
+      - RabbitMQ__Host=${RabbitMQ_Host}
+      - RabbitMQ__Username=${RabbitMQ_User}
+      - RabbitMQ__Password=${RabbitMQ_Pass}
+      - ConnectionStrings__AzureServiceBus=${ASB_ConnectionString}
 
   client:
     tty: true
-    restart: on-failure
+    restart: unless-stopped
     build:
+
       context: .
       dockerfile: ./ClientApp/Dockerfile
     depends_on:
       - worker
     environment: 
-      - Messaging__Transport=RabbitMQ
-      - RabbitMQ__Host=rabbitmq://host.docker.internal
-      - RabbitMQ__Username=guest
-      - RabbitMQ__Password=guest
+      - Messaging__Transport=${Transport}
+      - RabbitMQ__Host=${RabbitMQ_Host}
+      - RabbitMQ__Username=${RabbitMQ_User}
+      - RabbitMQ__Password=${RabbitMQ_Pass}
+      - ConnectionStrings__AzureServiceBus=${ASB_ConnectionString}

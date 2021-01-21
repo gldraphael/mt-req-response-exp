@@ -1,14 +1,18 @@
-# Quickstart using docker
+## Quickstart 
 
-1. Run RabbitMQ within docker
-    ```sh
-    docker run  -d
-                --name rabbitmq 
-                --restart unless-stopped
-                -p 15672:15672 -p 5672:5672
-                -h therabbit 
+### Using docker
+
+1. Setup the transport:
+    1. To use RabbitMQ, it should be running on the default port 5672. You can run it within docker with the following command:
+        ```sh
+        docker run -d                          \
+                --name rabbitmq             \
+                --restart unless-stopped    \
+                -p 15672:15672 -p 5672:5672 \
+                -h therabbit                \
                 rabbitmq-dev:3.8-management
-    ```
+        ```
+    1. To use Azure Service Bus (Standard), set `Messaging__Transport` to `AzureServiceBus` in the `.env` file, and set the connection string.
 2. Build and run the WorkerApp, and the ClientApp
     ```sh
     docker-compose build
