@@ -1,5 +1,5 @@
 ﻿using ClientApp;
-using CommonLib;
+using CommonLib.Extensions;
 using CommonLib.MessageContracts;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -49,13 +49,13 @@ await bus.StartAsync();
 try
 {
     var tasks = Enumerable.Range(1, 10)
-        .Select(id => worker.GetInfoAsync(id, timeout: TimeSpan.FromSeconds(6)));
+        .Select(id => 
+            worker.GetInfoAsync(id, timeout: TimeSpan.FromSeconds(6))
+                  .ContinueWith(r => {
+                    Log.Information("[{@id}]: {@Result}", id, r.Result);
+                  }
+            ));
     await Task.WhenAll(tasks);
-    foreach (var (t, i) in tasks.Select((t, i) => (t, i)))
-    {
-        Log.Information("[{@i}]: {@Result}", i, await t);
-    }
-
 }
 finally
 {
