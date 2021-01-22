@@ -18,7 +18,7 @@ namespace WorkerApp
 
         public async Task Consume(ConsumeContext<GetInfo> context)
         {
-            await Task.Delay(5_000); // wait for 5 seconds to simulate a long-running job
+            await Task.Delay(2_000);
             var response = getInfoService.GetInfo(context.Message.Id);
             logger.LogInformation("{@GetInfoResponse}", response);
             await context.RespondAsync(response);

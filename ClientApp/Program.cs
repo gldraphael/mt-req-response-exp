@@ -34,7 +34,7 @@ var serviceProvider = (new ServiceCollection() as IServiceCollection)
             {
                 x.AddRequestClient<GetInfo>();
             },
-            configureEndpoints: (a, b, c) => { },
+            configureEndpoints: (bc, rc, sp) => { },
             configureRabbitMq: (rbc, sp) => { },
             configureAzureServiceBus: (sbc, sp) => { }
         )
@@ -50,7 +50,7 @@ try
 {
     var tasks = Enumerable.Range(1, 10)
         .Select(id => 
-            worker.GetInfoAsync(id, timeout: TimeSpan.FromSeconds(6))
+            worker.GetInfoAsync(id, timeout: TimeSpan.FromSeconds(7))
                   .ContinueWith(r => {
                     Log.Information("[{@id}]: {@Result}", id, r.Result);
                   }
